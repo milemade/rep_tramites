@@ -1,4 +1,5 @@
 <?php
+ # la consulta no sirve por terminan variables de sesion
    $query_permisos = "SELECT a.`aper_txper_id` permiso
 			                   FROM ".$tabla_admin_permisos." a
 			                   JOIN ".$tabla_admin_tipo_permisos." b ON a.aper_txper_id = b.txper_id
