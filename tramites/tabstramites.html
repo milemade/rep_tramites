@@ -1,0 +1,127 @@
+<html>
+<head>
+<style>
+table.tabs {
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: transparent;
+        }
+    table.tabs th.tabck {
+        border: gray solid 1px;
+        border-bottom: 0;
+        background-color: gray;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        text-align: center;
+		font-size: 15px;
+	    font-family: arial;
+	    font-weight: bolder;
+        cursor: pointer;
+        }
+    table.tabs th.tabcks {
+        border: 0;
+        border-bottom: blue solid 1px;/*Color separador*/
+        }    
+    table.tabs td {
+        border: gray solid 1px;
+        border-top: 0;
+        }
+    table.tabs tr.filadiv {
+        background-color: rgb(235, 235, 225);
+        }
+    table.tabs div.tabdiv { 
+        background-color: rgb(235, 235, 225);
+        border: 0;
+        padding: 0.5em;
+        overflow: auto;
+        display: none;
+        width: 60em; 
+        height: 35em;//Alto del contenedor de pestañas
+        }
+</style>
+<script>
+var maxTabs = 10;
+window.onload = function(){
+    activaTab(document.getElementById("tabck-1"));
+}
+function activaTab(unTab) {
+    try {
+        //Los elementos div de todas las pestañas están todos juntos en una
+        //única celda de la segunda fila de la tabla de estructura de pestañas.
+        //Hemos de buscar la seleccionada, ponerle display block y al resto
+        //ponerle display none.
+        var id = unTab.id;
+        if (id){
+            var idTab = id.split("tabck-");
+            var numTab = parseInt(idTab[1]); 
+            //Las "tabdiv" son los bloques interiores mientras que los "tabck"
+            //son las pestañas.
+            var esteTabDiv = document.getElementById("tabdiv-" + numTab);
+            for (var i=1; i<maxTabs; i++) {
+                var tabdiv = document.getElementById("tabdiv-" + i);
+                if (tabdiv) {
+                    var tabck = document.getElementById("tabck-" + i);
+                    if (tabdiv.id == esteTabDiv.id) {
+                        tabdiv.style.display = "block";
+                        tabck.style.color = "#005199";//Color letras tabs
+                        tabck.style.backgroundColor = "rgb(235, 235, 225)";
+                        tabck.style.borderBottomColor = "rgb(235, 235, 225)";
+                    } else {
+                        tabdiv.style.display = "none";
+                        tabck.style.color = "white"; 
+                        tabck.style.backgroundColor = "#005199"; //Color tabs no seleccionados
+                        tabck.style.borderBottomColor = "#005199"; //Coler bordes  
+                    }
+                } else {
+                    break;
+                }
+            }
+        }
+    } catch (e) {
+        alert("Error al activar una pestaña. " + e.message);
+    }
+}       
+</script> 
+</head>
+<body>
+<table class="tabs" align="center">
+    <tr>
+        <!--<th class="tabcks">&nbsp;</th>-->
+        <th class="tabck" id="tabck-1" onclick="activaTab(this)">Tr&aacute;mite</th> 
+        <th class="tabcks">&nbsp;</th>
+        <th class="tabck" id="tabck-2" onclick="activaTab(this)">Documento</th>
+        <th class="tabcks">&nbsp;</th>
+        <th class="tabck" id="tabck-3" onclick="activaTab(this)">Carga Documentos</th> 
+<th class="tabcks">&nbsp;</th>
+        <th class="tabck" id="tabck-4" onclick="activaTab(this)">Observaciones</th>	
+<th class="tabcks">&nbsp;</th>
+        <th class="tabck" id="tabck-5" onclick="activaTab(this)">Mis Tr&aacute;mites</th>	
+<th class="tabcks">&nbsp;</th>
+        <th class="tabck" id="tabck-6" onclick="activaTab(this)">Consulta</th>		
+    </tr>
+    <tr class="filadiv">
+        <td colspan="12">
+            <div class="tabdiv" id="tabdiv-1">
+                Contenido de la <b class="verde">Primera pestaña</b>
+            </div>
+            <div class="tabdiv" id="tabdiv-2">
+                Otro contenido para la <b class="rojo">PESTAÑA 2ª</b>
+            </div>
+            <div class="tabdiv" id="tabdiv-3">
+                El último contenido de la <b class="azul">Pestaña 3</b>
+            </div>
+			<div class="tabdiv" id="tabdiv-4">
+                El último contenido de la <b class="azul">Pestaña 4</b>
+            </div>
+			<div class="tabdiv" id="tabdiv-5">
+                El último contenido de la <b class="azul">Pestaña 5</b>
+            </div>
+			<div class="tabdiv" id="tabdiv-6">
+                El último contenido de la <b class="azul">Pestaña 6</b>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
+<!--http://www.wextensible.com/como-se-hace/pestanyas-tabs/con-javascript.html-->

@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+a.Ntooltip {
+position: relative; /* es la posición normal */
+text-decoration: none !important; /* forzar sin subrayado */
+color:#0080C0 !important; /* forzar color del texto */
+font-weight:bold !important; /* forzar negritas */
+}
+
+a.Ntooltip:hover {
+z-index:999 !important;  /* va a estar por encima de todo */
+background-color:#fff !important; /* DEBE haber un color de fondo */
+}
+
+a.Ntooltip span {
+display: none; /* el elemento va a estar oculto */
+}
+
+a.Ntooltip:hover span {
+display: block; /* se fuerza a mostrar el bloque */
+position: relative; /* se fuerza a que se ubique en un lugar de la pantalla */
+top:2em; left:2em; /* donde va a estar */
+width:250px; /* el ancho por defecto que va a tener */
+padding:5px; /* la separación entre el contenido y los bordes */
+background-color: #0080C0; /* el color de fondo por defecto */
+color: #FFFFFF; /* el color de los textos por defecto */
+}
+</style>
+</head>
+
+<body>
+<a class=Ntooltip href="#">
+     el texto visible
+<span>
+          ... el texto oculto (cualquier código HTML) ......
+</span>
+</a>
+<table width="100%" border="1">
+  <tr>
+    <td width="37%">&nbsp;</td>
+    <td width="55%">&nbsp;</td>
+    <td width="8%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><a class=Ntooltip href="#">
+     el texto visible
+<span>
+          ... el texto oculto (cualquier código HTML) ......
+</span>
+</a></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+
+</body>
+</html>

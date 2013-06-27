@@ -1,0 +1,114 @@
+CREATE OR REPLACE VIEW v_usuario AS
+SELECT b.usu_id, b.usu_car_id, a.car_dxe_id,c.dxe_nombre, CONCAT( a.car_nombre,  ' - ', b.usu_corto ) usu_corto,d.sede_id,d.sede_nombre
+FROM cargos a
+JOIN usuario b ON a.car_id = b.usu_car_id AND a.car_estado =1 AND b.usu_estado =1
+JOIN dep_empresa c ON a.car_dxe_id = c.dxe_id AND dxe_estado=1 AND car_estado=1
+JOIN empresa_sedes d ON c.dxe_sede_id = d.sede_id AND d.sede_estado=1
+
+
+
+CREATE OR REPLACE VIEW v_cargos as SELECT d.car_id, CONCAT( a.emp_nombre, ' -', b.sede_nombre, ' - ', c.dxe_nombre, ' - ', d.car_nombre ) car_nombre,car_estado
+FROM empresa a
+JOIN empresa_sedes b ON a.emp_id = b.sede_emp_id
+JOIN dep_empresa c ON b.sede_id = c.dxe_sede_id
+JOIN cargos d ON c.dxe_id = d.car_dxe_id
+WHERE a.emp_estado =1
+AND b.sede_estado =1
+AND c.dxe_estado =1
+AND d.car_estado =1
+ORDER BY a.emp_nombre, b.sede_nombre, c.dxe_nombre, d.car_nombre ASC
+
+
+CREATE OR REPLACE VIEW v_empsede AS 
+SELECT sede_id, CONCAT( b.emp_nombre,  ' - ', a.sede_nombre ) sede_nombre, sede_estado
+FROM empresa_sedes a
+JOIN empresa b ON a.sede_emp_id = b.emp_id
+AND b.emp_estado =1
+AND a.sede_estado =1
+ORDER BY b.emp_nombre, a.sede_nombre
+
+CREATE OR REPLACE VIEW v_cardepto AS 
+SELECT dxe_id, CONCAT( a.emp_nombre,  ' - ', b.sede_nombre,  ' - ', c.dxe_nombre ) dxe_nombre, dxe_estado
+FROM empresa a
+JOIN empresa_sedes b ON a.emp_id = b.sede_emp_id
+AND b.sede_estado =1
+AND a.emp_estado =1
+JOIN dep_empresa c ON b.sede_id = c.dxe_sede_id
+AND c.dxe_estado =1
+ORDER BY a.emp_nombre, b.sede_nombre, c.dxe_nombre
+
+CREATE OR REPLACE VIEW v_vistausu AS 
+SELECT a.usu_id, CONCAT( a.usu_nombre,  ' ', a.usu_apel ) usu_nombre, b.car_nombre, 
+       c.per_nombre, a.usu_act_id, a.usu_cedula, a.usu_user, a.usu_estado, 
+	   a.usu_emailper, a.usu_emailcor, a.usu_dir, a.usu_fijo, a.usu_celular, 
+	   a.usu_obs, d.exc_nombre, 
+	   CONCAT( f.sede_nombre,  ' - ', e.dxe_nombre,  ' - ', b.car_nombre ) cargo
+FROM usuario a
+JOIN cargos b ON a.usu_car_id = b.car_id
+AND usu_estado =1
+AND b.car_estado =1
+JOIN perfil c ON a.usu_per_id = c.per_id
+AND c.per_estado =1
+LEFT JOIN empresa_cliente d ON a.usu_exc_id = d.exc_id
+AND d.exc_estado =1
+JOIN dep_empresa e ON e.dxe_id = b.car_dxe_id
+AND e.dxe_estado =1
+JOIN empresa_sedes f ON f.sede_id = e.dxe_sede_id
+AND f.sede_estado =1
+ORDER BY a.usu_nombre
+
+CREATE OR REPLACE VIEW v_dxdepto AS 
+SELECT a.dxd_id, CONCAT( c.sede_nombre,  ' - ', b.dxe_nombre,  ' || ', g.exa_nombre,  ' - ', f.axs_nombre,  ' - ', e.axe_nombre ) nombre
+FROM depxdepal a
+JOIN dep_empresa b ON a.dxd_dxe_id = b.dxe_id
+AND b.dxe_estado =1
+JOIN empresa_sedes c ON b.dxe_sede_id = c.sede_id
+AND c.sede_estado =1
+JOIN alianza_dep e ON a.dxd_axe_id = e.axe_id
+AND e.axe_estado =1
+JOIN alianza_sedes f ON e.axe_axs_id = f.axs_id
+AND f.axs_estado =1
+JOIN alianza_emp g ON f.axs_exa_id = g.exa_id
+AND g.exa_estado =1
+
+CREATE OR REPLACE view v_pasostramite as SELECT a.pxt_id, CONCAT( b.txt_nombre,  '  ', IF( a.pxt_txp_id =1,  'PRE',  'POS' ) ,  '  ', a.pxt_nombre,  '  ', a.pxt_tmpolimite,  ' ',  'DIAS' ) pxt_nombre, a.pxt_estado, a.pxt_txt_id
+FROM tramite_pasos a
+JOIN tramite_tipo b ON a.pxt_txt_id = b.txt_id AND b.txt_estado=1 AND a.pxt_estado =1
+ORDER BY a.pxt_txp_id, a.pxt_id
+
+CREATE OR REPLACE view v_frecuencia as SELECT txf_id, txf_nombre, txf_estado
+FROM  `tramite_frecuencia` 
+WHERE txf_estado=1
+ORDER BY txf_dias
+
+CREATE OR REPLACE view v_depxdepal as SELECT e.usu_id,a.dxd_axe_id, c.axe_nombre, CONCAT( d.car_nombre,  ' - ', e.usu_corto ) nom
+FROM depxdepal a
+JOIN dep_empresa b ON a.dxd_dxe_id = b.dxe_id
+AND b.dxe_estado =1
+AND a.dxd_estado =1
+JOIN alianza_dep c ON a.dxd_axe_id = c.axe_id
+AND c.axe_estado =1
+JOIN cargos d ON d.car_dxe_id = b.dxe_id
+AND d.car_estado =1
+JOIN usuario e ON e.usu_car_id = d.car_id
+AND e.usu_estado =1
+
+
+
+CREATE OR REPLACE VIEW v_obser AS 
+SELECT a.txo_fechahora, d.tra_id, a.txo_id, d.tra_consecutivo, CONCAT( c.car_nombre,  ' - ', b.usu_corto ) car_nombre, 
+a.txo_observaciones, a.txo_reales
+FROM  `tramite_observaciones` a
+JOIN usuario b ON a.txo_usu_id = b.usu_id
+AND a.txo_estado =1
+AND b.usu_estado =1
+JOIN cargos c ON c.car_id = b.usu_car_id
+AND car_estado =1
+JOIN tramite d ON d.tra_id = a.txo_tra_id
+AND d.tra_estado =1
+
+SELECT bb.tra_nombre,c.usu_corto,a.txo_observaciones,a.txo_reales
+	FROM tramite_observaciones a
+	JOIN tramite.tra_id b ON a.txo_tra_id=b.tra_id
+	JOIN usuario c ON a.txo_usu_id ON c.usu_id
+	

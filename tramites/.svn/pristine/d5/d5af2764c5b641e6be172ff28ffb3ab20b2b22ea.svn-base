@@ -1,0 +1,52 @@
+SELECT c.dep_id, a.doc_ciu_id, a.doc_txd_id,exa_id,f.axs_id,a.doc_axe_id,
+a.doc_usudestinoid.a.doc_fecdoc,a.doc_asunto,doc_entremitente,a.doc_remitente,a.doc_remitente,a.doc_anexos
+FROM  `documento` a
+JOIN ciudad b ON a.doc_ciu_id = b.ciu_id
+JOIN departamento c ON b.ciu_dep_id = c.dep_id
+JOIN tipo_documento d ON a.doc_txd_id = d.txd_id
+JOIN alianza_dep e ON a.doc_axe_id = a.axe_id
+JOIN alianza_sedes f ON e.axe_axs_id = f.axs_id
+JOIN alianza_emp g ON f.axs_exa_id = g.exa_id
+JOIN v_depxdepal h ON a.doc_axe_id = h.dxd_axe_id 
+LEFT JOIN usuario i ON a.doc_usudestinoid = i.usu_id
+WHERE a.doc_id=
+
+SELECT c.dep_id, a.doc_ciu_id, a.doc_txd_id, exa_id, f.axs_id, a.doc_axe_id, a.doc_usudestinoid, a.doc_fecdoc, 
+a.doc_asunto, doc_entremitente, a.doc_remitente,a.doc_anexos
+FROM  `documento` a
+JOIN ciudad b ON a.doc_ciu_id = b.ciu_id
+JOIN departamento c ON b.ciu_dep_id = c.dep_id
+JOIN tipo_documento d ON a.doc_txd_id = d.txd_id
+LEFT JOIN alianza_dep e ON a.doc_axe_id = e.axe_id
+LEFT JOIN alianza_sedes f ON e.axe_axs_id = f.axs_id
+LEFT JOIN alianza_emp g ON f.axs_exa_id = g.exa_id
+LEFT JOIN v_depxdepal h ON a.doc_axe_id = h.dxd_axe_id
+LEFT JOIN usuario i ON a.doc_usudestinoid = i.usu_id
+WHERE a.doc_id =4
+
+SELECT * 
+FROM  `documento` a
+JOIN ciudad b ON a.doc_ciu_id = b.ciu_id
+JOIN departamento c ON b.ciu_dep_id = c.dep_id
+JOIN tipo_documento d ON a.doc_txd_id = d.txd_id
+LEFT JOIN alianza_dep e ON a.doc_axe_id = e.axe_id
+LEFT JOIN alianza_sedes f ON e.axe_axs_id = f.axs_id
+LEFT JOIN alianza_emp g ON f.axs_exa_id = g.exa_id
+LEFT JOIN v_depxdepal h ON a.doc_axe_id = h.dxd_axe_id
+WHERE a.doc_id =4
+
+
+
+
+
+SELECT *
+FROM  `documento` a
+JOIN ciudad b ON a.doc_ciu_id = b.ciu_id
+JOIN departamento c ON b.ciu_dep_id = c.dep_id
+JOIN tipo_documento d ON a.doc_txd_id = d.txd_id
+LEFT JOIN alianza_dep e ON a.doc_axe_id = e.axe_id
+JOIN alianza_sedes f ON e.axe_axs_id = f.axs_id
+JOIN alianza_emp g ON f.axs_exa_id = g.exa_id
+JOIN v_depxdepal h ON a.doc_axe_id = h.dxd_axe_id
+LEFT JOIN usuario i ON a.doc_usudestinoid = i.usu_id
+WHERE a.doc_id =4

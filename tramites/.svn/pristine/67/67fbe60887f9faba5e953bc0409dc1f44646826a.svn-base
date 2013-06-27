@@ -1,0 +1,98 @@
+<<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml2/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title><?=$nombre_aplicacion?></title>
+<link rel="stylesheet" media="all" type="text/css" href="tabbed_pages/interna_pages.css" />
+<link href="tools.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="cuerpo_int">
+<div class="logo">
+<a href="index.php"><img src="imagenes/logo_centro_int.png" alt="Centro de Soluciones" width="428" height="117" class="left" /></a>
+<div id="usuario"><h2 class="txt_azul">Perengano José</h2></div>
+<br class="clear" />
+</div>
+<div id="barra">
+<a href="#"></a>
+</div>
+<div id="centro">
+<!--AQUI COMIENZA-->
+<form name="frm" action="" method="post">
+  <table width="580" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr class="cabecera">
+  <td colspan="2">Complete los siguientes campos</td>
+  </tr>
+  <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="320"><label>Nombre:</label></td>
+    <td class="txt_espacio" width="370"><input name="nombre" type="text"/></select></td>
+  </tr>
+  <tr class="celda_izq">
+    <td class="txt_espacio" width="350"><label>Empresa :</label></td>
+    <td wclass="txt_espacio" width="370"><select name=""><option>Seleccionar</option></select></td>
+  </tr>
+   <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="350"><label>Cargo:</label></td>
+    <td class="txt_espacio" width="350"><select name=""><option>Seleccionar</option></select></td>
+  </tr>
+  <tr class="celda_izq">
+    <td class="txt_espacio" width="350"><label>Sede:</label></td>
+    <td class="txt_espacio" width="350"><select name=""><option>Seleccionar</option></select></td>
+  </tr>
+  <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="350"><label>Perfil:</label></td>
+    <td class="txt_espacio" width="350"><select name=""><option>Seleccionar</option></select></td>
+  </tr>
+  <tr class="celda_izq">
+    <td class="txt_espacio" width="350"> <label>Nombre Usuario:</label></td>
+    <td class="txt_espacio" width="350"><input name="nombreuser" type="text"/></td>
+  </tr>
+  <tr class="celda_izq_azul"> 
+    <td class="txt_espacio" width="350"> <label>Password:</label></td>
+    <td class="txt_espacio" width="350"><input name="pass" type="password" id="pass" /></td>
+  </tr>
+  <tr class="celda_izq">
+    <td width="350" class="txt_espacio"> <label>Verificar Password:</label></td>
+    <td class="txt_espacio" width="350"><input name="verpass" type="password" id="pass" /></td>
+  </tr>
+  <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="350"> <label>E.mail corporativo:</label></td>
+    <td class="txt_espacio" width="350"><input name="emailc" type="text"/></td>
+  </tr>
+  <tr class="celda_izq">
+    <td class="txt_espacio" width="350"> <label>E.mail personal:</label></td>
+    <td class="txt_espacio" width="350"><input name="emailp" type="text"/></td>
+  </tr>
+  <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="350"> <label>Teléfono Fijo:</label></td>
+    <td class="txt_espacio" width="350"><input name="tfijo" type="text"/></td>
+  </tr>
+  <tr class="celda_izq">
+    <td class="txt_espacio" width="350"> <label>Teléfono Celular:</label></td>
+    <td class="txt_espacio" width="350"><input name="tcelular" type="text"/></td>
+  </tr>
+  <tr class="celda_izq_azul">
+    <td class="txt_espacio" width="350"> <label>Observaciones:</label></td>
+    <td class="txt_espacio" width="350"><textarea></textarea></td>
+  </tr>
+  <tr>
+  <td colspan="2" align="center"><input name="reset" type="reset" class="button" value="Limpiar" />
+<input name="enviar" type="button" class="button" value="Enviar" class="button"/></td>
+  </tr>
+</table>
+<input type="hidden" name="n" value="111">
+</form>
+<br class="clear" />
+  <p class="texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis purus nisl. Aliquam erat volutpat. Phasellus vel volutpat neque. Suspendisse hendrerit commodo dapibus. Nam et felis eget nunc pulvinar accumsan. Pellentesque porta faucibus lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.<br />
+<br />
+Phasellus iaculis lorem sodales diam dignissim id tristique augue pellentesque. Fusce ut mi ac purus auctor faucibus. Mauris pulvinar pulvinar vehicula. Sed cursus lacinia nisl ac pulvinar. Sed imperdiet pretium odio eget commodo. Donec consequat ultrices mollis. Proin id iaculis ligula. Aenean felis dui, laoreet vel suscipit in, malesuada commodo massa. Fusce sit amet velit nec ligula varius pharetra ac eu libero. Aliquam erat volutpat.</p>
+<br class="clear" />
+</div>
+<br class="clear" />
+
+
+<!--AQUI TERMINA-->
+<div class="btn_alianza"><a href="#"><img src="tabbed_pages/grupo_alianza.png" alt="" width="150" height="54" /></a></div>
+<div class="btn"><a href="#"><img src="tabbed_pages/masterrobots.png" alt="" width="100" height="48" /></a></div>
+</body>
+</html>

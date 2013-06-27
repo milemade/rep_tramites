@@ -1,0 +1,45 @@
+<script>
+function agrandar(e){       
+            
+var code = (document.all) ? event.keyCode:e.which;
+var ctrl = (document.all) ? event.ctrlKey:e.modifiers & Event.CONTROL_MASK;
+                    
+var k=null;
+(e.keyCode) ? k=e.keyCode : k=e.which;
+area=document.forms['formulario'].TAestado.value;
+lineas=area.split('\n');
+            
+for(i in lineas){
+    var ubound=i;
+}       
+            
+ubound=new Number(ubound)+1;
+if (ubound>10){
+    document.forms['formulario'].TAestado.rows=10;
+    document.getElementById('TAestado').className="TAestadoMax";
+}else{
+if(k==13 ){             
+                
+    document.forms['formulario'].TAestado.rows
+        document.forms['formulario'].TAestado.rows +1;  
+}
+else
+{
+    document.forms['formulario'].TAestado.rows=ubound;
+    document.getElementById('TAestado').className="TAestadoNor";
+}                   
+}
+if (ubound==1){
+document.forms['formulario'].TAestado.rows=2;
+}                       
+}
+
+</script>
+<textarea  style="width:700px" rows="1" Id="TAestado" onkeydown="agrandar(event)" >¿En qué piensas?</textarea>
+
+
+txs_id	int(10)		UNSIGNED	No		auto_increment	 	 	 	 	 	 	
+	txs_tra_id	int(11)			No			 	 	 	 	 	 	
+	txs_usu_id	int(11)			No			 	 	 	 	 	 	
+	txs_ext_id	int(11)			No			 	 	 	 	 	 	
+	txs_fechahora

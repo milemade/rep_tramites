@@ -1,0 +1,125 @@
+<?php
+if(isset($_POST['b']) && $_POST['b']==1)
+{  
+    $campos = $_POST['nombre_campos_tabla'];
+	$campos = substr ($campos, 0, strlen($campos) - 1);
+	//echo $campos; exit;
+	$condicion = $_POST['campo_id']."=".$_POST[id];
+	$Gen->SetDatos($campos,$_POST['nombre_tabla'],$condicion);
+	echo "<script>alert('Registro actualizado satisfactoriamente.');</script>";
+	
+}
+if(isset($_POST['b']) && $_POST['b']==2)
+{
+    $campos = $_POST['nombre_campos_tabla'];
+	$Valores = substr ($campos, 0, strlen($campos) - 1);
+	$Gen->SetValores($Valores,$_POST['nombre_tabla']);
+	echo "<script>alert('Registro agregado satisfactoriamente.');</script>";
+}
+?> 
+<style>
+    /* estilo para lo q este dentro de la ventana modal */
+    .modal {
+        display: none;
+        position: relative;
+        top: 0%;
+        left: 0%;
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        background: #fff;
+		color: #333;
+        z-index:1002;
+        overflow: auto;
+    }
+</style>
+<script>
+		function eliminar(campo_id,tabla,id,campo_estado)
+		{
+		   if (confirm("Esta seguro que desea eliminar este registro"))
+	       {
+                window.location="config_eliminar.php?campo_id="+campo_id+"&v_id="+id+"&tabla="+tabla+"&campo_estado="+campo_estado;
+           }
+		}
+</script>
+<div id="barra">
+<a href="#" class="titulo">CONFIGURACION</a>
+<a href="logout.php"></a>
+<a href="aplicacion.php?n=1" class="volver"></a>
+<br class="clear" />
+</div>
+<div id="centro">
+<div id="basic-accordian" ><!--Parent of the Accordion-->
+<div style="width:250px; float:left">
+<?php
+$dbm = new Database();
+$sqlm = "SELECT a.axm_id, a.axm_nombre_tabla, a.axm_descripcion, a.axm_texto, a.axm_estado,a.axm_usu_id
+			FROM ".$tabla_admin_menu." a
+			JOIN ".$tabla_admin_tablas." b ON a.axm_nombre_tabla = b.axt_nombre_tabla
+			JOIN ".$tabla_admin_permisos." c ON a.axm_nombre_tabla = c.aper_nombre_tabla
+			GROUP BY a.axm_nombre_tabla";
+$sqlm1 = $sqlm." LIMIT 0,1;";
+$sqlm2 = $sqlm." LIMIT 1,30;";
+$dbm->query($sqlm1);
+while($dbm->next_row()){ 
+?>
+<div id="test<?=$dbm->axm_id?>-header" class="accordion_headings header_highlight" ><?=$Gen->limpiarCaracteresEspeciales($dbm->axm_descripcion)?></div>
+<? }$dbm->close(); 
+$dbm = new Database();
+$sqlm2 = $sqlm." LIMIT 1,30;";
+$dbm->query($sqlm2);
+while($dbm->next_row()){ 
+?>
+<div id="test<?=$dbm->axm_id?>-header" class="accordion_headings" ><?=$Gen->limpiarCaracteresEspeciales($dbm->axm_descripcion)?></div>
+<? }$dbm->close(); ?> 
+</div>
+<!--FIN MENU LATERAL-->
+
+
+
+<div id="test0-content">
+	<div class="accordion_child">
+    	<h1 class="tit_bobo">TRAMITE TIPO ORIGEN</h1>
+    	<p class="texto_bobo">Se define el origen de los trámites.</p>
+        <table width="620" border="0" cellpadding="0"  >
+  <tr class="cabecera">
+    <td >Nombre</td>
+    <td colspan="2">Opciones</td>
+  </tr>
+  <tr class="celda_izq">
+    <td width="377" class="txt_espacio" >Externo</td>
+    <td width="32" class="txt_espacio"><form><input type="image" src="tabbed_pages/editar.png" width="32" height="32" /></form></td>
+    <td width="32" class="txt_espacio"><form><input type="image" src="tabbed_pages/eliminar.png" width="32" height="32" /></form></td>
+  </tr>
+  
+  <tr class="celda_izq_azul">
+   <td width="377" class="txt_espacio" >Interno</td>
+    <td width="32" class="txt_espacio"><img src="tabbed_pages/editar.png" alt="" width="32" height="32" /></td>
+    <td width="32" class="txt_espacio"><img src="tabbed_pages/eliminar.png" alt="" width="32" height="32" /></td>
+  </tr>
+ 
+</table><br />
+
+<div align="center">
+<a href="#" class="hoja">1</a>
+<a href="#" class="hoja_sin">2</a>
+<a href="#" class="hoja_sin">3</a>
+<a href="#" class="hoja_sin">4</a>
+</div>
+    </div>
+  </div>
+ <!--FIN TABLA ADMINISTRACION-->
+
+ 
+ 
+ 
+ 
+ 
+ 
+<br class="clear" />
+  <p class="texto"><? $campo_mostrar="txt_texto";
+                      $sql = "SELECT txt_texto FROM textos WHERE txt_pagina='configuracion';";
+                      echo $Gen->limpiarCaracteresEspeciales($Gen->GetUnDato($campo_mostrar,$sql))?></p>
+<br class="clear" />
+</div>
+<br class="clear" />

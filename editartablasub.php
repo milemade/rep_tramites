@@ -1,0 +1,371 @@
+<? require_once("conf/clave.php");
+   
+//print_r($_POST);
+//echo $_GET['nombretabla'];
+if(isset($_GET['tablaoriginal']) && $_GET['tablaoriginal']!='')
+   $tablaoriginal = $_GET['tablaoriginal'];
+if(isset($_GET['nombretabla']) && $_GET['nombretabla']!='')
+   $tablaoriginal = $_GET['nombretabla'];
+if($_POST['nombretabla']!='')
+   $tablaoriginal = $_POST['nombretabla'];
+if(isset($_GET['v_id']) && $_GET['v_id']>0)
+  $_POST['v_id'] = $_GET['v_id'];
+if($_POST['descripcion']=="")
+    $_POST['descripcion'] = $Gen->GetUnDato("axm_descripcion","SELECT axm_descripcion FROM admin_menu WHERE axm_nombre_tabla='".$_GET['nombretabla']."'");
+if(isset($_GET['idpadre']) && $_GET['idpadre'])
+   $_POST['v_id'] = $_GET['idpadre'];
+if($_POST['txt_dxe_id']>0)
+    $txt_dxe_id = $_POST['txt_dxe_id'];
+$tablaoriginal = strtolower($tablaoriginal);
+$tablaenvia = $tablaoriginal;
+if($tablaoriginal=="tramite_pasos")
+   {
+      $sql = "SELECT txt_tmaximo FROM tramite_tipo WHERE txt_id=".$_POST['idpadre'].";";
+	  $tiempomaximo = $Gen->GetUnDato("txt_tmaximo",$sql);
+	  echo "TIEMPO MAXIMO TIPO DE TRAMITE ES:  ".$tiempomaximo." DIAS.<BR>" ;
+	  $sqql = "SELECT SUM(pxt_tmpolimite) suma FROM tramite_pasos WHERE pxt_txp_id=1 AND pxt_estado=1 AND pxt_txt_id =".$_POST['idpadre'].";";
+	  $tiempopasos = $Gen->GetUnDato("suma",$sqql);
+	  $tiemporestante = $tiempomaximo - $tiempopasos;
+	  if($tiemporestante>0)
+	     echo "TIEMPO RESTANTE: ".$tiemporestante." DIAS.";
+	  if($tiempopasos==$tiempomaximo)
+	    $banpos = 1;
+	  
+	    
+   } 
+?>
+<script>
+$(document).ready(function(){
+	$("#sede").change(function(){
+		$.post("combos/carga_select3.php",{ id:$(this).val() },function(data){$("#dep").html(data);})
+	});
+	$("#dep").change(function(){
+		$.post("combos/carga_select4.php",{ id:$(this).val() },function(data){$("#car_revisa_id").html(data);})
+	});
+	$("#dep").change(function(){
+		$.post("combos/carga_select4.php",{ id:$(this).val() },function(data){$("#exc_res_id").html(data);})
+	});
+	$("#dep").change(function(){
+		$.post("combos/carga_select4.php",{ id:$(this).val() },function(data){$("#pxt_car_id").html(data);})
+	});
+	$("#empresa1").change(function(){
+		$.post("combos/carga_select2.php",{ id:$(this).val() },function(data){$("#sede1").html(data);})
+	});
+	$("#sede1").change(function(){
+		$.post("combos/carga_select3.php",{ id:$(this).val() },function(data){$("#car_dxe_id").html(data);})
+	});
+})
+</script>
+<div id="centro">
+<div id="loginPan_v2">
+<div class="cabecera_editar" width="600">EditarSub <?=$Gen->limpiarCaracteresEspeciales($_POST['descripcion'])?></div>
+
+<form name="frm" action="aplicacion.php" method="post">
+
+<table border="0" cellspacing="0" cellpadding="0">
+  </tr>
+  <?php
+  $dbb = new Database();
+  $sqll = "SELECT axm_submenu,axm_camposub,axm_usu_id,axm_fechahora,axm_equipo 
+           FROM ".$tabla_admin_menu." WHERE axm_nombre_tabla='".$tablaoriginal."';";
+  $dbb->query($sqll);
+  $dbb->next_row();
+  $vartemp = $_POST['submenu'];
+  $vartemp1 = $_POST['camposub'];
+  //echo "1".$_POST['submenu']; //exit;
+  $_POST['submenu'] = $dbb->axm_submenu;
+  if($_POST['submenu']=="")
+     $_POST['submenu'] = $vartemp;
+  //echo "2".$_POST['submenu']; exit;
+  $_POST['camposub'] = $dbb->axm_camposub;
+      $_POST['camposub'] = $vartemp1;
+  $bansub =1;
+  if($dbb->axm_submenu=="" && $dbb->axm_camposub=="")
+      $bansub = 0;
+  $vartemp2 = $_POST['campousu'];
+  $vartemp3 = $_POST['campofechahora'];
+  $vartemp4 = $_POST['campoequipo'];
+  if($vartemp2=="")
+      $_POST['campousu'] = $dbb->axm_usu_id;
+  if($vartemp3=="")
+      $_POST['campofechahora'] = $dbb->axm_fechahora;
+  if($vartemp3=="")
+      $_POST['campoequipo'] = $dbb->axm_equipo;
+  @$dbb->close();
+  $dbu = new Database();
+  $query = "SELECT * FROM ".$tabla_admin_tablas." WHERE axt_nombre_tabla ='".$tablaoriginal."' ORDER BY axt_id";
+  $dbu->query($query);
+  //echo "TABLASUB".$query;
+  $tablaforma = "";
+  $nombre_campos_tabla = "";
+  while($dbu->next_row())
+  {
+    $v_id =$dbu->axt_id;
+    $v_nombre_campo = $dbu->axt_nombre_campo;
+    $v_campo_es_id = $dbu->axt_campo_es_id;
+    $v_tipo_campo = $dbu->axt_tipo_campo;
+    $v_tabla_relacion = $dbu->axt_tabla_relacion;
+    $v_campo_relacion = $dbu->axt_campo_relacion;
+    $v_campo_imprimir = $dbu->axt_campo_imprimir;
+    $v_campo_idioma = $dbu->axt_txr_idioma;
+    $v_campo_visualizar=$dbu->axt_campo_visual;
+    $label = $dbu->axt_rotulo;
+    $tipo_archivo = $dbu->axt_txa_id;
+    if($v_campo_es_id==1)
+      $campo_id = $v_nombre_campo;
+    $query_edit="SELECT ".$v_nombre_campo." FROM ".$tablaoriginal." WHERE ".$campo_id."='".$_POST['v_id']."';";
+    $db2 = new Database();
+    $db2->query($query_edit);
+    $db2->next_row();
+    $valor = $db2->$v_nombre_campo;
+    switch($v_tipo_campo)
+    {
+	  case "text":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $tablaforma.="<td><input type=text name=$v_nombre_campo size=55 value='".$Gen->limpiarCaracteresEspeciales($valor)."'></td></tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+		case "required":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $tablaforma.="<td><input type=text name=$v_nombre_campo size=55 value='".$Gen->limpiarCaracteresEspeciales($valor)."' required></td></tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+		case "email":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $tablaforma.="<td><input type=email name=".$v_nombre_campo." size=55 value='".$valor."'></td></tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+         case "textareas":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $tablaforma.="<td><textarea name=".$v_nombre_campo." cols='50' rows='5' Id='TAestado' onkeydown='agrandar(event)'>".utf8_decode($valor)."</textarea></td></tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+	 case "select":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $query_select = "SELECT DISTINCT $v_campo_relacion,$v_campo_imprimir FROM $v_tabla_relacion where $v_campo_visualizar=1";
+			  $query_select .= " order by $v_campo_imprimir";
+			 //echo $query_select;
+			  $tablaforma .= "<td>".$Gen->ComboBox($query_select,$v_campo_relacion,$v_campo_imprimir,$v_nombre_campo,$valor)."<td><tr>";
+			  if($v_nombre_campo=="pxt_txt_id")
+			      $idtramite = $valor;
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+	 case "selectt":
+	          if($v_nombre_campo=='pxt_txp_id' && $valor==2)
+			     $ban2 = 1;
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $query_select = "SELECT DISTINCT $v_campo_relacion,$v_campo_imprimir FROM $v_tabla_relacion where $v_campo_visualizar=1";
+			  $query_select .= " order by $v_campo_imprimir";
+			 //echo $query_select;
+			  $tablaforma .= "<td>".$Gen->ComboBox($query_select,$v_campo_relacion,$v_campo_imprimir,$v_nombre_campo,$valor)."<td><tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+	case "seltipo":
+		        $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $query_select = "SELECT DISTINCT $v_campo_relacion,$v_campo_imprimir FROM $v_tabla_relacion where $v_campo_visualizar=1";
+			  $query_select .= " order by $v_campo_imprimir";
+			 //echo $query_select;
+			  $tablaforma .= "<td>".$Gen->ComboBox($query_select,$v_campo_relacion,$v_campo_imprimir,$v_nombre_campo,$valor)."<td><tr>";
+				$nombre_campos_tabla .= $v_nombre_campo."|S,";
+		        break;
+	 case "numero":
+			  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+			  $tablaforma.="<td><input type=text name=$v_nombre_campo value='$valor' onkeypress='return validarnumero(event);'></td></tr>";
+			  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			  break;
+	 case "numeror":
+					  if($tiempopasos<$tiempomaximo)
+	                     $tiempoeditar = $tiempomaximo;
+					  if($tiempopasos==$tiempomaximo)
+					     $tiempoeditar = $valor;
+					  if(isset($ban2) && $ban2==1)
+					     $tiempoeditar = 300;
+					  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+					  $tablaforma.="<td><input type='number' required name=".$v_nombre_campo." max='".$tiempoeditar."' value='".$valor."' onkeypress='return validarnumero(event);'></td></tr>";
+					  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+					  break;
+	case "check":
+					  $tablaforma .= '<tr><td valign="top"><input class="nume" name="'.$v_nombre_campo.'" type="checkbox" value="S"/><label class="num">Ultimo d&iacute;a mes</label></td>';
+					  $tablaforma.='</tr>';
+					  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+					  break;
+			 case "quin":
+					  $tablaforma .= "<tr><td><label>".$Gen->limpiarCaracteresEspeciales($label)."</label></td>";
+					  $tablaforma.="<td><input type=text name=$v_nombre_campo maxlength='2' onkeypress='return validarnumero(event);'></td></tr>";
+					  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+					  break;
+	 case "cargos": 
+	                 if($tablaoriginal=='cargos')
+			 {
+			         $sqlc = "SELECT a.car_nombre, a.car_dxe_id, b.dxe_id,b.dxe_nombre, c.sede_id, d.emp_id,d.emp_nombre
+					FROM cargos a
+					JOIN dep_empresa b ON a.car_dxe_id = b.dxe_id
+					JOIN empresa_sedes c ON b.dxe_sede_id = c.sede_id
+					JOIN empresa d ON c.sede_emp_id = d.emp_id
+					WHERE a.car_revisa_id =".$valor.";";
+		        }
+			if($tablaoriginal=="empresa_cliente")
+			{
+			         $sqlc = "SELECT e.emp_id, e.emp_nombre, d.sede_id, d.sede_id, c.dxe_id, c.dxe_nombre, b.car_id, b.car_nombre
+					FROM empresa_cliente a
+					JOIN cargos b ON a.exc_res_id = b.car_id
+					JOIN dep_empresa c ON b.car_dxe_id = c.dxe_id
+					JOIN empresa_sedes d ON c.dxe_sede_id = d.sede_id
+					JOIN empresa e ON d.sede_emp_id = e.emp_id
+					WHERE a.exc_res_id =".$valor.";";
+			}
+                        //echo $sqlc;
+                        if($valor>0)
+                        {			
+			   $dbc = new Database();
+			   $dbc->query($sqlc);
+			   $dbc->next_row();	
+			   $idemp = $dbc->emp_id;
+			   $sede = $dbc->sede_id;
+			   $depto = $dbc->dxe_nombre;
+			   $id_depto = $dbc->dxe_id;
+			   $revisa = $Gen->GetUnDato("car_nombre","SELECT car_nombre FROM cargos WHERE car_id=".$valor.";");			   
+			   @$dbc->close();	
+                        }
+		      if($depto=="")
+		         $depto = "SELECCIONE";
+		      if($revisa=="")
+		         $revisa = "SELECCIONE";
+                      $tablaforma .= '<tr><td colspan="2" align="center" style="font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; color:#8F0707; font-weight:bolder;padding-top:5px;">****Para seleccionar el '.$Gen->limpiarCaracteresEspeciales($label).'****</td></tr>';			  				  
+                      $tablaforma .= "<tr><td><label>Sede Alianza:</label></td>";   
+		      $tablaforma .= "<td>";
+		      $sql1 = "SELECT sede_id,sede_nombre FROM empresa_sedes WHERE sede_estado=1;";
+		      $tablaforma .= $Gen->ComboBox($sql1,"sede_id","sede_nombre","sede",$sede);
+		      $tablaforma .= "</td></tr>";
+		      $tablaforma .= '<tr><td><label>Departamento Alianza:</label></td>
+                                     <td><select name="dep" id="dep"><option selected value="0">'.strtoupper($depto).'</option>
+                                     </select></td></tr>';
+		     $tablaforma .= '<tr><td><label>'.$Gen->limpiarCaracteresEspeciales($label).'</label></td>
+                                     <td><select name="'.$v_nombre_campo.'" id="'.$v_nombre_campo.'"><option selected value="'.$valor.'">'.strtoupper($revisa).'</option>
+                                     </select><td><tr>';
+					  $nombre_campos_tabla .= $v_nombre_campo."|S,";
+			          break; 
+			 case "cargostipo":
+			     if($tablaoriginal==$t_tramite_pasos)
+			     {
+				     $sqlt = "SELECT pxt_car_id,pxt_res_id FROM ".$t_tramite_pasos." WHERE pxt_id=".$_POST['v_id'].";";
+					 $dbt = new Database();
+					 $dbt->query($sqlt);
+					 $dbt->next_row();
+					 $pxt_car_id = $dbt->pxt_car_id;
+					 $pxt_res_id = $dbt->pxt_res_id;
+				 }
+				 $sqee = "SELECT dxe_id,dxe_nombre FROM ".$t_dep_empresa." WHERE dxe_id=".$txt_dxe_id." ORDER BY dxe_nombre;";
+				 $sqlcc = "SELECT DISTINCT(a.car_id), a.car_nombre 
+								 FROM ".$t_cargos." a
+								 JOIN ".$t_usuario." b ON a.car_id = b.usu_car_id
+								 WHERE a.car_dxe_id =".$txt_dxe_id." ORDER BY a.car_nombre;";
+                $PSqlsin = "SELECT usu_id, usu_corto FROM usuario WHERE usu_estado=1 ORDER BY usu_corto;";
+				 $tablaforma .= '<tr><td><label>Departamento:</label></td>
+						         <td>'.$Gen->ComboBox($sqee, dxe_id,dxe_nombre,txt_dxe_id,$txt_dxe_id).'</td></tr>';
+				 $tablaforma .= '<tr><td><label>'.$Gen->limpiarCaracteresEspeciales($label).'</label></td>
+			                         <td>'.$Gen->ComboBox($sqlcc, car_id,car_nombre,pxt_car_id,$pxt_car_id,"onchange='pxt_res_idcambia(this);ocultar(this)'").'<td><tr>';
+				 $tablaforma .= '<tr><td><label>Usuario Responsable</label></td><td>'.$Gen->ComboBox($PSqlsin, "usu_id","usu_corto","pxt_res_id",$pxt_res_id).'</td></tr>';
+				 $Gen->Sincronice2Combos("pxt_car_id","pxt_res_id","usuario",0,"usu_car_id","usu_id","usu_corto");
+				  $nombre_campos_tabla .= $v_nombre_campo."|N,pxt_res_id|N,";
+			  break;
+			case "depto":
+			         $dbc = new Database();
+		             $sqlc = "SELECT b.dxe_nombre, c.sede_nombre, d.emp_id,d.emp_nombre
+								FROM cargos a
+								JOIN dep_empresa b ON a.car_dxe_id = b.dxe_id
+								JOIN empresa_sedes c ON b.dxe_sede_id = c.sede_id
+								JOIN empresa d ON c.sede_emp_id = d.emp_id
+								WHERE a.car_dxe_id =".$valor."
+								AND car_id=".$_POST['v_id'].";";
+						//echo $sqlc;
+					  $dbc->query($sqlc);
+                      $dbc->next_row();	
+					  $empresa = $dbc->emp_nombre;
+					  $idemp = $dbc->emp_id;
+					  $sede = $dbc->sede_nombre;
+					  $depto = $dbc->dxe_nombre;
+					  @$dbc->close();
+			         $tablaforma .= "<tr><td><label>Empresa</label></td>";
+					 $tablaforma .= "<td><select name='empresa1' id='empresa1'><option value='0'>Seleccione</option>";
+					 $sql1 = "SELECT * FROM empresa WHERE emp_estado=1;";
+					 $db1 = new Database();
+					 $db1->query($sql1);
+					 while($db1->next_row()){
+					    if($idemp==$db1->emp_id)
+						    $selected = "selected";
+						 else
+						    unset($selected);
+					     $tablaforma .= '<option value="'.$db1->emp_id.'" '.$selected.'>'.strtoupper($db1->emp_nombre).'</option>';
+					 }
+					 @$db1->close();
+					 $tablaforma .= "</select>";
+					 $tablaforma .= '<tr><td><label>Sede Empresa:</label></td>
+								     <td><select name="sede1" id="sede1"><option selected value="0">'.strtoupper($sede).'</option>
+								     </select></td></tr>';
+					 $tablaforma .= '<tr><td><label>Departamento Empresa:</label></td>
+                                     <td><select name="'.$v_nombre_campo.'" id="'.$v_nombre_campo.'"><option selected value="'.$valor.'">'.strtoupper($depto).'</option>
+                                     </select></td></tr>';
+					$nombre_campos_tabla .= $v_nombre_campo."|S,";
+					break;
+	    
+	}  
+  }//End while admin_tablas1
+  $nombre_campos_tabla .= $_POST['campoequipo']."|S,";
+  echo $tablaforma;
+  $nomcampos = $nombre_campos_tabla."".$_POST['campousu']."|N,".$_POST['campofechahora']."|S";
+  ?>
+</table> <p>&nbsp;</p>
+
+<input name="editar" type="submit" class="button" value="Editar"/>
+<input type="hidden" name="n" value="3">
+<input type="hidden" name="b" value="1">
+<input type="hidden" name="confirmacion" value="2">
+<input type="hidden" name="nombretabla" value="<?=$tablaoriginal?>">
+<input type="hidden" name="tablapadre" value="<?=$_POST['tablapadre']?>">
+<?php if($Gen->padre($Gen->padre($tablaoriginal))!="")
+         $flag=1;
+	  else
+	     $flag = 2;?>
+<input type="hidden" name="flag" value="<?=$flag?>">
+<input type="hidden" name="idpadre" value="<?=$_POST['idpadre']?>">
+<input type="hidden" name="nombre_campos_tabla" value="<?=$nomcampos?>">
+<input type="hidden" name="campo_id" value="<?=$campo_id?>">
+<input type="hidden" name="<?=$_POST['campousu']?>" value="<?=$_SESSION['usu_id']?>">
+<input type="hidden" name="<?=$_POST['campofechahora']?>" value="<?=$datetime?>">
+<input type="hidden" name="idaxm" value="<?=$_POST['idaxm']?>">
+<input type="hidden" name="submenu" value="<?=$_POST['submenu']?>">
+<input type="hidden" name="camposub" value="<?=$_POST['camposub']?>">
+<input type="hidden" name="id_edi" value="<?=$_POST['v_id']?>">
+<input type="hidden" name="edisub" value="1">
+</form>
+<form name="frmvolver" action="aplicacion.php" method="post">
+<input name="crear" type="submit" class="button" value="Volver"/>
+<input type="hidden" name="n" value="3">
+<input type="hidden" name="b" value="3">
+<input type="hidden" name="idaxm" value="<?php echo $_POST['idaxm'];?>">
+<input type="hidden" name="idpadre" value="<?=$_POST['idpadre']?>">
+<input type="hidden" name="tablapadre" value="<?=$_POST['tablapadre']?>">
+<?php if($_POST['tablapadre']!="" && $_POST['idpadre']>0 )
+         $flag=1;
+      else
+	 $flag = 2;?>
+<input type="hidden" name="flag" value="<?=$flag?>">
+<?php if($_POST['tablapadre']!="")
+           $tablaoriginal = $_POST['tablapadre'];?>
+<input type="hidden" name="tablaoriginal" value="<?=strtolower($tablaoriginal)?>">
+</form>
+</div>
+<br class="clear" />
+</div>
+<br class="clear" />
+<? $cad = $Gen->submenu($tablaenvia);
+//print_r($cad);
+   $_POST['submenu'] =$cad[0];
+   $_POST['camposub'] =$cad[1];
+   if($_POST['submenu']!="" && $bansub==1){  
+     $id_padre = $_POST['v_id'];
+     require_once("adminsubmenu.php");
+?>
+
+<? } ?>

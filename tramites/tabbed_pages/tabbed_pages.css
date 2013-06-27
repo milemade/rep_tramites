@@ -1,0 +1,101 @@
+body{
+	background:url(../imagenes/fondo.png);
+	padding:0px;
+	margin:0px;
+	font:Arial, Helvetica, sans-serif;
+}
+
+#cuerpo{
+	width:1024px;
+	height:600px;
+	margin:0 auto 0 auto;
+	position:relative;
+	top:150px;
+	}
+
+.logo {
+	float:left;
+	margin-top:100px;
+	}
+.galeria{
+	float: left;
+	width:500px;}
+.galeria h4{
+	font-size:9px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#666;
+	text-align:center;
+	}
+/*///////////////GALERIA ////////////////////////////*/
+#gallery {font:13px Arial, Helvetica, sans-serif; font-weight:bold; width:450px; padding:15px 0 0 0; line-height:15px; }
+
+#gallery div.off {color:#353535;  height:33px; margin-right:2px; line-height:33px; padding:0 20px; float:left; background:url(tabs_0.jpg) repeat-x left bottom; border:1px solid #e1e1e1; border-bottom-color:#192a41; cursor:pointer; position:relative; z-index:20;
+-moz-border-radius:15px 15px 0 0;
+-webkit-border-radius: 15px 15px 0 0;}
+
+#gallery div.on {color:#fff; padding:0 20px; margin-right:2px; margin-top:1px; float:left; background:url(tabs_1.jpg) repeat-x left bottom; border:1px solid #e1e1e1; cursor:pointer; border-bottom:0; height:33px; line-height:32px; position:relative; z-index:100;-moz-border-radius:15px 15px 0 0;
+-webkit-border-radius: 15px 15px 0 0;}
+
+div.hide {display:none; width:0; overflow:hidden;}
+
+div.show {clear:left; background:#fff; width:450px; margin-top:0; top:-1px; border:1px solid #e1e1e1;padding:20px 0; position:relative; z-index:50; font:11px verdana, arial, sans-serif; line-height:18px;
+-moz-border-radius:0 15px 15px  15px;
+-webkit-border-radius:0 15px 15px 15px;
+
+}
+
+div.show img {float:left; margin-left:10px;}
+
+.clear {clear:both;}
+/*//////////////FONDO IMAGEN////////////////////*/
+.fondo{
+	background:url(registrese.jpg) 30px left no-repeat;
+	width:450px;
+	height:200px;
+	}
+.btn{
+	position:fixed;
+	right:0px;
+	bottom:30%;
+	width:100px;
+	height:48px;
+	}
+.btn a,img{
+	border:0px;
+	}
+/*//////////////FORMULARIO///////////////////////////*/
+#loginPan form{width:300px;  background: url(fondo_form.jpg) repeat #dadad7; border:#c1c0c0 solid 1px; color:#414141; position:relative;  margin:0 10px; padding:6px 0 0; float:right;font-family:Arial, Helvetica, sans-serif;font-weight:bold; margin-top:50px;  }
+#loginPan form label{width:80px; height:22px; display:block; float:left; padding-left:5px; margin:9px 0 0;
+font-size:12px; line-height:25px;  }
+#loginPan form label.codigo{width:150px;}
+#loginPan form input.codigo{margin-left:12px; width:250px;}
+#loginPan form input{width:170px; height:21px; font-size:12px; display:block; float:left; margin:9px 12px 0 0;  background: url(fondo_input.jpg) repeat #fff; border:#c1c0c0 solid 1px;}
+#loginPan form input.button{width:91px; height:24px; display:block;  background:url(btn_enviar.jpg) 0 0 no-repeat; border:none; color:#fff; text-align:center; padding:0px; float:right;
+cursor:pointer; margin:10px 12px 10px 0;}
+#loginPan ul{margin:6px 18px 0 5px; list-style:none;float:right;}
+#loginPan ul li{ width:381px; height:23px; background:url(fondo_vineta.jpg)  0 0 no-repeat;  color:#fff; font-weight:bold; line-height:25px; text-align:center; margin-top:10px;}
+#loginPan ul li a{display:block; text-decoration:none; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; }
+#loginPan ul li a:hover{background:url(fondo_vineta_roll.jpg) 95% 60% no-repeat; color:#2b2b29;}
+
+/*//////////////FORMULARIto///////////////////////////*/
+#loginPan form{width:300px;  background: url(fondo_form.jpg) repeat #dadad7; border:#c1c0c0 solid 1px; color:#414141; position:relative;  margin:0 10px; padding:6px 0 0; float:right;font-family:Arial, Helvetica, sans-serif;font-weight:bold; margin-top:50px;  }
+#loginPan form label{width:80px; height:22px; display:block; float:left; padding-left:5px; margin:9px 0 0;
+font-size:12px; line-height:25px;  }
+#loginPan form label.codigo{width:150px;}
+#loginPan form input.codigo{margin-left:12px; width:250px;}
+#loginPan form input{width:170px; height:21px; font-size:12px; display:block; float:left; margin:9px 12px 0 0;  background: url(fondo_input.jpg) repeat #fff; border:#c1c0c0 solid 1px;}
+#loginPan form input.button{width:91px; height:24px; display:block;  background:url(btn_enviar.jpg) 0 0 no-repeat; border:none; color:#fff; text-align:center; padding:0px; float:right;
+cursor:pointer; margin:10px 12px 10px 0;}
+#loginPan ul{margin:6px 18px 0 5px; list-style:none;float:right;}
+#loginPan ul li{ width:381px; height:23px; background:url(fondo_vineta.jpg)  0 0 no-repeat;  color:#fff; font-weight:bold; line-height:25px; text-align:center; margin-top:10px;}
+#loginPan ul li a{display:block; text-decoration:none; color:#FFF; font-family:Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; }
+#loginPan ul li a:hover{background:url(fondo_vineta_roll.jpg) 95% 60% no-repeat; color:#2b2b29;}
+
+.ssel {
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #1E1E1E;
+}
+
+
+

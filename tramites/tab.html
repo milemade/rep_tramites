@@ -1,0 +1,22 @@
+<head>
+<script>
+function autotab(current,to){
+if (current.getAttribute &&
+current.value.length==current.getAttribute("maxlength")) {
+to.focus()
+}
+}
+</script>
+</head>
+<body>
+<b>Inserta un numero ejemplo (1234-33-9999-1234567899):</b>
+<form name="tarjeta">
+<input type="text" name="mi_numero0"
+size=5 onKeyup="autotab(this, document.tarjeta.mi_numero1)" maxlength=4>-
+<input type="text" name="mi_numero1"
+size=3 onKeyup="autotab(this, document.tarjeta.mi_numero2)" maxlength=2>-
+<input type="text" name="mi_numero2"
+size=5 onKeyup="autotab(this, document.tarjeta.mi_numero3)" maxlength=4>-
+<input type="text" name="mi_numero3" size=11 maxlength=10>
+</form>
+</body>

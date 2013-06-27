@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+form.zpestanya{
+    width: 20em;
+    position: relative;
+    }
+span.zhueco {
+    background-color: transparent;
+    border: 0;
+    border-bottom: gray solid 1px;
+    }    
+a.zvinculo {
+    background-color: gray;
+    color: white;
+    border: gray solid 1px;
+    font-weight: normal;
+    text-decoration: none;
+    outline: none;
+    }
+span.ztitulo {
+    padding-left: 1em;
+    padding-right: 1em;
+    }
+a.zvinculo ins.zinterior {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    background-color: rgb(235, 235, 225);
+    margin: 1px;
+    padding: 0.5em;
+    color: black;
+    width: 18.8em;
+    height: 8.8em; 
+    overflow: auto; 
+    border: 0;
+    font-weight: normal;
+    text-decoration: none;
+    } 
+a.zvinculo:focus {
+    background-color: rgb(235, 235, 225);
+    border-bottom-color: transparent;
+    color: blue;
+    }    
+a.zvinculo:focus ins.zinterior {
+    z-index: 1;
+    }
+div.zcontenedor {
+    height: 10em;
+    background-color: rgb(235, 235, 225);
+    border: gray solid 1px; 
+    }
+</style>
+</head>
+
+<body>
+<form class="zpestanya">
+    <!--  primer tab con tabindex="100" -->
+    <span class="zhueco">&nbsp;</span><a class="zvinculo" 
+    tabindex="100" href="javascript:"><span 
+    class="ztitulo">Primera</span><ins class="zinterior">
+        Contenido ...
+    </ins></a>
+    <!--  segundo tab con tabindex="101"-->
+    <a class="zvinculo" 
+    tabindex="101" href="javascript:"><span 
+    class="ztitulo">Segunda</span><ins class="zinterior">
+        ContenidoSegunda ...
+    </ins></a>
+    <!--  tercer tab con tabindex="102" -->
+    <!-- insertar más tabs aquí -->
+    <!--  tab de fondo -->
+    <span class="zhueco">&nbsp;</span><a class="zvinculo" 
+    tabindex="199" href="javascript:" 
+    style="border: 0"><ins class="zinterior">
+        Contenido de fondo ...
+    </ins></a>
+    <span class="zhueco">&nbsp;</span><div 
+    class="zcontenedor"> </div>
+</form>
+</body>
+</html>

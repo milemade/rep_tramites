@@ -1,0 +1,54 @@
+<div id="barra">
+<a href="#" class="tramites">USUARIOS</a>
+<a href="logout.php"></a>
+<a href="aplicacion.php?n=1" class="volver"></a>
+<br class="clear" />
+</div>
+<div id="centro">
+<!--aqui se escribe-->
+<h1 class="tit_bobo">ADMINISTRACION USUARIOS</h1>
+    	<!--<p class="texto_bobo">Se definen las categorías de los trámites.</p>-->
+        <table width="100%" border="0" cellpadding="0"  >
+  <tr>
+    <td ><div align="right"><a href="#" class="ingresar" data-reveal-id="myModal" data-animation="fade">INGRESAR</a></div></td>
+    <td colspan="2"><div id="myModal" class="reveal-modal">
+			<h1>Reveal Modal Goodness</h1>
+			<p>This is a default modal in all its glory, but any of the styles here can easily be changed in the CSS.</p>
+			<a class="close-reveal-modal">&#215;</a>
+		</div></td>
+  </tr>
+  <tr class="cabecera">
+    <td >Nombre</td>
+    <td colspan="2">Opciones</td>
+  </tr>
+  <tr class="celda_izq">
+    <td width="377" class="txt_espacio" >Eduardo Granada</td>
+    <td width="32" class="txt_espacio"><form><input type="image" src="tabbed_pages/editar.png" width="32" height="32" /></form></td>
+    <td width="32" class="txt_espacio"><form><input type="image" src="tabbed_pages/eliminar.png" width="32" height="32" /></form></td>
+  </tr>
+  
+  <tr class="celda_izq_azul">
+   <td width="377" class="txt_espacio" >Rodrigo Restrepo</td>
+    <td width="32" class="txt_espacio"><img src="tabbed_pages/editar.png" alt="" width="32" height="32" /></td>
+    <td width="32" class="txt_espacio"><img src="tabbed_pages/eliminar.png" alt="" width="32" height="32" /></td>
+  </tr>
+</table>
+  <br />
+<div align="center">
+<a href="#" class="hoja">1</a>
+<a href="#" class="hoja_sin">2</a>
+<a href="#" class="hoja_sin">3</a>
+<a href="#" class="hoja_sin">4</a>
+</div>
+    
+
+<!--finnnnn-->
+<br class="clear" />
+  <p class="texto">
+  <? $campo_mostrar="txt_texto";
+     $sql = "SELECT txt_texto FROM textos WHERE txt_pagina='tramites' AND txt_estado=1;";
+     echo $Gen->limpiarCaracteresEspeciales($Gen->GetUnDato($campo_mostrar,$sql))?>
+  </p>
+<br class="clear" />
+</div>
+<br class="clear" />

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<table width="700" border="0">
+  <tr>
+    <td width="204">Nombre Tipo Tramite</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Frecuencia Tramite</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td valign="top">Este trámite se repite
+      <input type="checkbox" name="checkbox" id="checkbox" /></td>
+    <td colspan="3"><table width="485" border="0">
+      <tr>
+        <td width="125">Numero de veces</td>
+        <td width="350"><form id="form1" name="form1" method="post" action="">
+          <label>
+            <input type="text" name="textfield" id="textfield" />
+            </label>
+        </form>        </td>
+      </tr>
+    </table></td>
+  </tr>
+  
+  <tr>
+    <td colspan="4" valign="top"><table width="100%" border="0">
+      <tr>
+        <td width="17%">Fecha Inicio</td>
+        <td width="34%">&nbsp;</td>
+        <td width="16%">Fecha Final</td>
+        <td width="33%">&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td colspan="2"><label>
+          <input type="checkbox" name="checkbox8" id="checkbox8" />
+          No tiene FIN</label></td>
+      </tr>
+    </table></td>
+  </tr>
+ 
+    <td>Descripcion Tramite</td>
+    <td colspan="3"><textarea name="textarea" id="textarea" cols="45" rows="5"></textarea></td>
+  </tr>
+  <tr>
+    <td>Tiempo Máximo del Trámite</td>
+    <td colspan="3"><input type="text" name="textfield2" id="textfield2" />&nbsp;&nbsp;&nbsp;D&iacute;as</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+</table>
+
+</body>
+</html>

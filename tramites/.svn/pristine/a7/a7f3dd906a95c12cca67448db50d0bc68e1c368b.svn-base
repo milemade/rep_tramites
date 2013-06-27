@@ -1,0 +1,58 @@
+/*@charset "utf-8";
+ CSS Document */
+* {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+#basic-accordian{
+	padding:5px;
+	width:900px;
+	position:relative;
+	left:0px;
+	top:0;
+	/*z-index:2;*/
+}
+
+.accordion_headings{
+	height:20px;
+	padding:5px;
+	background:#365372;
+	color:#FFFFFF;
+	border:1px solid #FFF;
+	cursor:pointer;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.accordion_headings:hover{
+	background:#1f3348;
+}
+
+.accordion_child{
+	padding:15px;
+	background:#EEE;
+}
+
+.header_highlight{
+	background:#7ea3ca;
+}
+
+.texto_bobo{
+	text-align:justify;
+	color:#1c2936;
+	font-size:12px;
+	font-weight:bolder;
+	text-transform:uppercase;}
+.tit_bobo{
+	text-align:left;
+	color:#e28400;
+	font-size:18px;
+	text-transform:uppercase;
+	font-weight:bold;}
+.tit_boboazul{
+	text-align:left;
+	color:#0B2744;
+	font-size:18px;
+	text-transform:uppercase;
+	font-weight:bold;}

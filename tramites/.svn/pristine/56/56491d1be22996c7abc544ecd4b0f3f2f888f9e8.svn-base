@@ -1,0 +1,96 @@
+<script type="text/javascript" src="js/tabpane.js"></script>
+<link type="text/css" rel="StyleSheet" href="css/tab.webfx.css" />
+
+<div class="tab-pane" id="tab-pane-1">
+
+<script type="text/javascript">
+var tabPane1 = new WebFXTabPane( document.getElementById( "tab-pane-1" ) );
+</script>
+
+   <div class="tab-page" id="tab-page-1">
+      <h2 class="tab">General</h2>
+
+      <script type="text/javascript">
+      tabPane1.addTabPage( document.getElementById( "tab-page-1" ) );
+      </script>
+
+      This is text of tab 1. This is text of tab 1.
+      This is text of tab 1. This is text of tab 1.
+	  <table width="200" border="1">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+</table>
+
+   </div>
+
+   <div class="tab-page" id="tab-page-2">
+      <h2 class="tab">Privacy</h2>
+
+      <script type="text/javascript">
+      tabPane1.addTabPage( document.getElementById( "tab-page-2" ) );
+      </script>
+
+      This is text of tab 2. This is text of tab 2.
+      This is text of tab 2. This is text of tab 2.
+	  <table width="200" border="1">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+</table>
+
+   </div>
+   
+   <div class="tab-page" id="tab-page-3">
+      <h2 class="tab">tercer</h2>
+
+      <script type="text/javascript">
+      tabPane1.addTabPage( document.getElementById( "tab-page-3" ) );
+      </script>
+
+      This is text of tatresis is text of tab 3.
+	  <table width="200" border="1">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+</table>
+
+   </div>
+   
+   
+   
+   
+</div>
+<script type="text/javascript">
+setupAllTabs();
+</script>
