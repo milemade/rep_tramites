@@ -1,9 +1,9 @@
 <?php
-        $query_permisos = "SELECT a.`aper_txper_id` permiso
-			FROM ".$tabla_admin_permisos." a
-			JOIN ".$tabla_admin_tipo_permisos." b ON a.aper_txper_id = b.txper_id
-			WHERE aper_nombre_tabla = '".$tablaoriginal."'
-			AND aper_axp_id=".$_SESSION['usu_per_id'].";";
+   $query_permisos = "SELECT a.`aper_txper_id` permiso
+			                   FROM ".$tabla_admin_permisos." a
+			                   JOIN ".$tabla_admin_tipo_permisos." b ON a.aper_txper_id = b.txper_id
+			                   WHERE aper_nombre_tabla = '".$tablaoriginal."'
+			                   AND aper_axp_id=".$_SESSION['usu_per_id'].";";
 	//echo $query_permisos;
 	$db_per = new Database();
 	$db_per->query($query_permisos);
